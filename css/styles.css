@@ -53,7 +53,7 @@ h1, h2, h3, h4 { font-weight: 700; line-height: 1.15; }
   align-items: center;
   justify-content: space-between;
   padding: 0 40px;
-  height: 72px;
+  height: 88px;
   background: rgba(10,10,10,0.85);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
@@ -67,8 +67,10 @@ h1, h2, h3, h4 { font-weight: 700; line-height: 1.15; }
 
 .navbar-logo-img {
   display: block;
-  width: 150px;
+  width: 230px;
+  max-width: 52vw;
   height: auto;
+  filter: drop-shadow(0 0 18px rgba(255,255,255,0.14));
 }
 
 .navbar-actions {
@@ -863,7 +865,8 @@ input[type=range]:active::-webkit-slider-thumb {
 }
 
 @media (max-width: 768px) {
-  .navbar { padding: 0 20px; }
+  .navbar { height: 78px; padding: 0 20px; }
+  .navbar-logo-img { width: 180px; }
   .section { padding: 40px 20px; }
   .calc-row { grid-template-columns: 1fr; }
   .hero { padding: 100px 20px 40px; gap: 40px; }
