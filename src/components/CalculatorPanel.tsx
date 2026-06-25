@@ -38,7 +38,7 @@ export function CalculatorPanel({
   return (
     <div
       data-testid="calculator-panel"
-      className="pointer-events-auto w-full rounded-3xl border border-white/10 bg-black/60 p-4 shadow-[0_24px_80px_rgba(0,0,0,0.45)] backdrop-blur-2xl sm:p-5"
+      className="pointer-events-auto w-full rounded-3xl border border-white/10 bg-black/70 p-4 shadow-[0_24px_80px_rgba(0,0,0,0.45)] backdrop-blur-md sm:p-5"
     >
       <div className="flex items-start justify-between gap-4">
         <div>

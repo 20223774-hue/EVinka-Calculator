@@ -24,6 +24,7 @@ export function CarShowcase({ vehicle, language }: CarShowcaseProps) {
             src={publicAsset(vehicle.image)}
             alt={`${vehicle.brand} ${vehicle.model}`}
             className="mx-auto h-[82%] w-[92%] object-contain drop-shadow-[0_26px_36px_rgba(212,165,116,0.2)]"
+            decoding="async"
             onError={() => setImageFailed(true)}
           />
         ) : (

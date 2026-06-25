@@ -40,7 +40,7 @@ export function BrandSelect({ brands, value, onChange }: BrandSelectProps) {
       {open ? (
         <div
           data-testid="brand-options"
-          className="absolute left-0 right-0 top-[calc(100%+8px)] z-40 max-h-64 overflow-auto rounded-xl border border-white/10 bg-zinc-950/95 p-2 shadow-2xl backdrop-blur-xl"
+          className="absolute left-0 right-0 top-[calc(100%+8px)] z-40 max-h-64 overflow-auto rounded-xl border border-white/10 bg-zinc-950/98 p-2 shadow-2xl"
         >
           {brands.map((brand) => (
             <button

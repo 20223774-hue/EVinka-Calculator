@@ -32,6 +32,8 @@ export function ChargerCard({ vehicle, language }: ChargerCardProps) {
           src={publicAsset(charger.image)}
           alt={charger.name}
           className="h-28 w-24 object-contain drop-shadow-[0_18px_24px_rgba(0,0,0,0.45)]"
+          decoding="async"
+          loading="lazy"
         />
       </div>
       <div>

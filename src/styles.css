@@ -44,26 +44,54 @@
 
 @layer utilities {
   .car-drive-in {
-    animation: car-drive-in 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: car-drive-in 0.72s cubic-bezier(0.16, 1, 0.3, 1) both;
+    will-change: transform, opacity;
+  }
+
+  .evinka-performance-bg {
+    background:
+      linear-gradient(115deg, transparent 0%, rgba(212, 165, 116, 0.13) 42%, transparent 58%),
+      linear-gradient(90deg, rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.34) 52%, rgba(0, 0, 0, 0.76)),
+      repeating-linear-gradient(90deg, rgba(212, 165, 116, 0.055) 0 1px, transparent 1px 128px),
+      repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 104px),
+      hsl(var(--hero-bg));
+    background-size: 180% 180%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+    animation: evinka-bg-sweep 16s linear infinite;
+    transform: translateZ(0);
+    will-change: background-position;
   }
 }
 
 @keyframes car-drive-in {
   0% {
     opacity: 0;
-    transform: translateX(52%) scale(0.94);
-    filter: blur(5px);
+    transform: translate3d(52%, 0, 0) scale(0.96);
   }
 
   62% {
     opacity: 1;
-    transform: translateX(-3%) scale(1.01);
-    filter: blur(0);
+    transform: translate3d(-3%, 0, 0) scale(1.01);
   }
 
   100% {
     opacity: 1;
-    transform: translateX(0) scale(1);
-    filter: blur(0);
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes evinka-bg-sweep {
+  0% {
+    background-position: 160% 50%, 0 0, 0 0, 0 0, 0 0;
+  }
+
+  100% {
+    background-position: -60% 50%, 0 0, 128px 0, 0 104px, 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .car-drive-in,
+  .evinka-performance-bg {
+    animation: none;
   }
 }

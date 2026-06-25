@@ -1,10 +1,9 @@
-import React, { Suspense, useState } from "react";
+import { useState } from "react";
 import { VEHICLES } from "../data/vehicles";
 import { copy, type Language } from "../lib/i18n";
 import { CalculatorPanel } from "./CalculatorPanel";
 import { CarShowcase } from "./CarShowcase";
-
-const Spline = React.lazy(() => import("@splinetool/react-spline"));
+import { SplineBackground } from "./SplineBackground";
 
 type HeroSectionProps = {
   language: Language;
@@ -16,14 +15,7 @@ export function HeroSection({ language }: HeroSectionProps) {
 
   return (
     <section className="relative min-h-screen overflow-x-hidden bg-hero-bg">
-      <div className="absolute inset-0">
-        <Suspense fallback={<div className="absolute inset-0 bg-hero-bg" />}>
-          <Spline
-            scene="https://prod.spline.design/Slk6b8kz3LRlKiyk/scene.splinecode"
-            className="h-full w-full"
-          />
-        </Suspense>
-      </div>
+      <SplineBackground />
 
       <div className="absolute inset-0 z-[1] bg-black/45 pointer-events-none" />
       <div className="absolute inset-0 z-[2] bg-[radial-gradient(circle_at_24%_35%,rgba(212,165,116,0.2),transparent_30%),linear-gradient(90deg,rgba(0,0,0,0.55),rgba(0,0,0,0.12)_52%,rgba(0,0,0,0.64))] pointer-events-none" />
