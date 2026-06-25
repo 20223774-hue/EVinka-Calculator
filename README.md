@@ -1,4 +1,4 @@
-# EVINKA AI Calculator
+# EVINKA Calculator
 
 Landing page futurista para EVINKA con React, Vite, TypeScript, Tailwind CSS, una escena 3D embebida con Spline y calculadora de ahorro EV.
 

@@ -27,8 +27,13 @@ export type ChargerRecommendation = {
   name: string;
   badge: string;
   powerKw: number;
+  powerLabel?: string;
   description: string;
   image: string;
+  specs?: Array<{
+    label: string;
+    value: string;
+  }>;
 };
 
 export function calculateSavings(vehicle: Vehicle, kmDaily: number): SavingsResult {
@@ -67,9 +72,55 @@ export function calculateSavings(vehicle: Vehicle, kmDaily: number): SavingsResu
   };
 }
 
-export function getChargerRecommendation(
-  tier: ChargerTier,
-): ChargerRecommendation {
+const LUXURY_BRANDS = new Set([
+  "Audi",
+  "BMW",
+  "Mercedes-Benz",
+  "MINI",
+  "Porsche",
+]);
+
+const LUXURY_MODEL_IDS = new Set([
+  "byd-seal-awd",
+  "byd-sealion-7-awd",
+  "byd-tang-ev-gs",
+  "kia-ev9",
+  "mg-cyberster",
+  "volvo-ec40-plus",
+  "volvo-ec40-ultra",
+  "volvo-ex40-single-motor",
+  "volvo-ex40-twin-motor",
+  "volvo-ex90-twin-motor",
+  "volvo-ex90-twin-motor-performance",
+]);
+
+export function isLuxuryVehicle(vehicle: Vehicle) {
+  return LUXURY_BRANDS.has(vehicle.brand) || LUXURY_MODEL_IDS.has(vehicle.id);
+}
+
+export function getChargerRecommendation(vehicle: Vehicle): ChargerRecommendation {
+  if (isLuxuryVehicle(vehicle)) {
+    return {
+      name: "EVinka Alien X",
+      badge: "Ideal para modelos exclusivos y de lujo",
+      powerKw: 22,
+      powerLabel: "7 / 11 / 22 kW",
+      description:
+        "Cargador premium con pantalla, luces de estado, RFID y comunicacion Ethernet o 4G opcional compatible con OCPP 1.6J.",
+      image: "/charger-images/evinka-alien-x.png",
+      specs: [
+        { label: "Capacidad", value: "7 / 11 / 22 kW" },
+        { label: "Eficiencia", value: "96%" },
+        { label: "Comunicacion", value: "OCPP 1.6J" },
+        { label: "Proteccion", value: "IP54 + Tipo B 6mA" },
+      ],
+    };
+  }
+
+  return getTierChargerRecommendation(vehicle.chargerTier);
+}
+
+function getTierChargerRecommendation(tier: ChargerTier): ChargerRecommendation {
   if (tier === "fleet") {
     return {
       name: "EVinka Fleet 22kW",

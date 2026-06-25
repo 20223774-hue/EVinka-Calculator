@@ -35,7 +35,7 @@ export function HeroSection() {
             className="text-[clamp(3rem,8vw,6.5rem)] font-bold leading-[0.98] tracking-[-0.06em] text-foreground uppercase opacity-0 animate-fade-up"
             style={{ animationDelay: "0.2s" }}
           >
-            EVINKA <span className="text-primary">AI</span>
+            EVINKA
           </h1>
 
           <p

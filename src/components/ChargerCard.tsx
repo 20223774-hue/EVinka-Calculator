@@ -10,15 +10,22 @@ type ChargerCardProps = {
 };
 
 export function ChargerCard({ vehicle }: ChargerCardProps) {
-  const charger = getChargerRecommendation(vehicle.chargerTier);
+  const charger = getChargerRecommendation(vehicle);
+  const specs = charger.specs ?? [
+    { label: "Potencia", value: charger.powerLabel ?? `${charger.powerKw} kW` },
+    { label: "Carga estimada", value: estimateChargeTime(vehicle, charger.powerKw) },
+  ];
 
   return (
-    <div className="mt-4 grid gap-3 rounded-2xl border border-white/10 bg-white/[0.06] p-3.5 sm:grid-cols-[84px_1fr]">
-      <div className="flex min-h-24 items-center justify-center rounded-xl bg-white/[0.08]">
+    <div
+      data-testid="charger-card"
+      className="mt-4 grid gap-3 rounded-2xl border border-white/10 bg-white/[0.06] p-3.5 sm:grid-cols-[96px_1fr]"
+    >
+      <div className="flex min-h-28 items-center justify-center rounded-xl bg-white/[0.08]">
         <img
           src={publicAsset(charger.image)}
           alt={charger.name}
-          className="h-24 w-20 object-contain drop-shadow-[0_18px_24px_rgba(0,0,0,0.45)]"
+          className="h-28 w-24 object-contain drop-shadow-[0_18px_24px_rgba(0,0,0,0.45)]"
         />
       </div>
       <div>
@@ -35,20 +42,16 @@ export function ChargerCard({ vehicle }: ChargerCardProps) {
           {charger.description}
         </p>
         <div className="mt-3 grid grid-cols-2 gap-3 text-sm">
-          <div className="rounded-xl bg-black/25 p-2.5">
-            <p className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
-              Potencia
-            </p>
-            <p className="mt-1 font-semibold text-primary">{charger.powerKw} kW</p>
-          </div>
-          <div className="rounded-xl bg-black/25 p-2.5">
-            <p className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
-              Carga estimada
-            </p>
-            <p className="mt-1 font-semibold text-foreground">
-              {estimateChargeTime(vehicle, charger.powerKw)}
-            </p>
-          </div>
+          {specs.map((spec, index) => (
+            <div key={spec.label} className="rounded-xl bg-black/25 p-2.5">
+              <p className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                {spec.label}
+              </p>
+              <p className={`mt-1 font-semibold ${index === 0 ? "text-primary" : "text-foreground"}`}>
+                {spec.value}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
