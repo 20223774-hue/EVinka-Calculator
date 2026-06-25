@@ -1,4 +1,5 @@
 import type { ChargerTier, Vehicle } from "../data/vehicles";
+import { copy, type Language } from "./i18n";
 
 export const CALCULATION_ASSUMPTIONS = {
   electricityPricePerKwh: 0.65,
@@ -98,35 +99,47 @@ export function isLuxuryVehicle(vehicle: Vehicle) {
   return LUXURY_BRANDS.has(vehicle.brand) || LUXURY_MODEL_IDS.has(vehicle.id);
 }
 
-export function getChargerRecommendation(vehicle: Vehicle): ChargerRecommendation {
+export function getChargerRecommendation(
+  vehicle: Vehicle,
+  language: Language,
+): ChargerRecommendation {
+  const t = copy[language].charger;
+
   if (isLuxuryVehicle(vehicle)) {
     return {
       name: "EVinka Alien X",
-      badge: "Ideal para modelos exclusivos y de lujo",
+      badge: t.luxuryBadge,
       powerKw: 22,
       powerLabel: "7 / 11 / 22 kW",
-      description:
-        "Cargador premium con pantalla, luces de estado, RFID y comunicacion Ethernet o 4G opcional compatible con OCPP 1.6J.",
+      description: t.luxuryDescription,
       image: "/charger-images/evinka-alien-x.png",
       specs: [
-        { label: "Capacidad", value: "7 / 11 / 22 kW" },
-        { label: "Eficiencia", value: "96%" },
-        { label: "Comunicacion", value: "OCPP 1.6J" },
-        { label: "Proteccion", value: "IP54 + Tipo B 6mA" },
+        { label: t.capacity, value: "7 / 11 / 22 kW" },
+        { label: t.efficiency, value: "96%" },
+        { label: t.communication, value: "OCPP 1.6J" },
+        {
+          label: t.protection,
+          value: language === "es" ? "IP54 + Tipo B 6mA" : "IP54 + Type B 6mA",
+        },
       ],
     };
   }
 
-  return getTierChargerRecommendation(vehicle.chargerTier);
+  return getTierChargerRecommendation(vehicle.chargerTier, language);
 }
 
-function getTierChargerRecommendation(tier: ChargerTier): ChargerRecommendation {
+function getTierChargerRecommendation(
+  tier: ChargerTier,
+  language: Language,
+): ChargerRecommendation {
+  const t = copy[language].charger;
+
   if (tier === "fleet") {
     return {
       name: "EVinka Fleet 22kW",
-      badge: "Ideal para flotas y alta rotacion",
+      badge: t.fleetBadge,
       powerKw: 22,
-      description: "Mayor potencia para baterias grandes y operaciones intensivas.",
+      description: t.fleetDescription,
       image: "/charger-images/evinka-minibox.png",
     };
   }
@@ -134,27 +147,31 @@ function getTierChargerRecommendation(tier: ChargerTier): ChargerRecommendation 
   if (tier === "pro") {
     return {
       name: "EVinka Pro 11kW",
-      badge: "Ideal para SUV y baterias medianas",
+      badge: t.proBadge,
       powerKw: 11,
-      description: "Carga equilibrada para hogares premium y empresas.",
+      description: t.proDescription,
       image: "/charger-images/evinka-minibox.png",
     };
   }
 
   return {
     name: "EVinka Minibox 7kW",
-    badge: "Ideal para uso residencial",
+    badge: t.homeBadge,
     powerKw: 7,
-    description: "Compacto, seguro y eficiente para el dia a dia.",
+    description: t.homeDescription,
     image: "/charger-images/evinka-minibox.png",
   };
 }
 
-export function estimateChargeTime(vehicle: Vehicle, powerKw: number) {
+export function estimateChargeTime(
+  vehicle: Vehicle,
+  powerKw: number,
+  language: Language = "es",
+) {
   const hours = (vehicle.batteryKwh / powerKw) * 1.15;
   const min = Math.max(1, Math.floor(hours));
   const max = Math.max(min + 1, Math.ceil(hours + 1));
-  return `${min}-${max} horas`;
+  return `${min}-${max} ${copy[language].charger.hours}`;
 }
 
 export function formatSoles(value: number) {

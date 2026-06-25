@@ -4,16 +4,22 @@ import {
   getChargerRecommendation,
   publicAsset,
 } from "../lib/calculator";
+import { copy, type Language } from "../lib/i18n";
 
 type ChargerCardProps = {
   vehicle: Vehicle;
+  language: Language;
 };
 
-export function ChargerCard({ vehicle }: ChargerCardProps) {
-  const charger = getChargerRecommendation(vehicle);
+export function ChargerCard({ vehicle, language }: ChargerCardProps) {
+  const t = copy[language].charger;
+  const charger = getChargerRecommendation(vehicle, language);
   const specs = charger.specs ?? [
-    { label: "Potencia", value: charger.powerLabel ?? `${charger.powerKw} kW` },
-    { label: "Carga estimada", value: estimateChargeTime(vehicle, charger.powerKw) },
+    { label: t.power, value: charger.powerLabel ?? `${charger.powerKw} kW` },
+    {
+      label: t.estimatedCharge,
+      value: estimateChargeTime(vehicle, charger.powerKw, language),
+    },
   ];
 
   return (
@@ -30,7 +36,7 @@ export function ChargerCard({ vehicle }: ChargerCardProps) {
       </div>
       <div>
         <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-          Cargador recomendado
+          {t.heading}
         </p>
         <div className="mt-1 inline-flex rounded-full border border-primary/25 bg-primary/10 px-2.5 py-1 text-[11px] text-primary">
           {charger.badge}

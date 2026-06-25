@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import type { Vehicle } from "../data/vehicles";
 import { publicAsset } from "../lib/calculator";
+import { copy, type Language } from "../lib/i18n";
 
 type CarShowcaseProps = {
   vehicle: Vehicle;
+  language: Language;
 };
 
-export function CarShowcase({ vehicle }: CarShowcaseProps) {
+export function CarShowcase({ vehicle, language }: CarShowcaseProps) {
   const [imageFailed, setImageFailed] = useState(false);
+  const t = copy[language].car;
 
   useEffect(() => {
     setImageFailed(false);
@@ -20,7 +23,7 @@ export function CarShowcase({ vehicle }: CarShowcaseProps) {
           <img
             src={publicAsset(vehicle.image)}
             alt={`${vehicle.brand} ${vehicle.model}`}
-            className="mx-auto h-[82%] w-[92%] object-contain drop-shadow-[0_26px_36px_rgba(0,255,0,0.16)]"
+            className="mx-auto h-[82%] w-[92%] object-contain drop-shadow-[0_26px_36px_rgba(212,165,116,0.2)]"
             onError={() => setImageFailed(true)}
           />
         ) : (
@@ -31,7 +34,7 @@ export function CarShowcase({ vehicle }: CarShowcaseProps) {
                 {vehicle.brand} {vehicle.model}
               </p>
               <p className="mt-1 text-xs text-muted-foreground">
-                Agrega su imagen en public/car-images
+                {t.missing}
               </p>
             </div>
           </div>
