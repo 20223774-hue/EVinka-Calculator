@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Volvo placeholder">
+  <rect width="120" height="120" rx="60" fill="#101010"/>
+  <circle cx="60" cy="60" r="53" fill="none" stroke="#D4A574" stroke-width="5"/>
+  <text x="60" y="68" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#FFFFFF">VOL</text>
+</svg>

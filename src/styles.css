@@ -41,3 +41,29 @@
     font-family: inherit;
   }
 }
+
+@layer utilities {
+  .car-drive-in {
+    animation: car-drive-in 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+
+@keyframes car-drive-in {
+  0% {
+    opacity: 0;
+    transform: translateX(52%) scale(0.94);
+    filter: blur(5px);
+  }
+
+  62% {
+    opacity: 1;
+    transform: translateX(-3%) scale(1.01);
+    filter: blur(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    filter: blur(0);
+  }
+}
